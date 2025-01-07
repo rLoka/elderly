@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vrijeme i Datum</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .time {
+            font-size: 25vw;  /* Increased font size */
+            font-weight: bold;  /* Make the time text bold */
+        }
+        .date {
+            font-size: 15vw;  /* Slightly smaller font size for the date */
+        }
+    </style>
+</head>
+<body>
+    <div class="time" id="time"></div>
+    <div class="date" id="date"></div>
+
+    <script>
+        function updateTimeAndDate() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const timeString = `${hours}:${minutes}`;
+
+            const day = now.getDate().toString().padStart(2, '0');
+            const month = (now.getMonth() + 1).toString().padStart(2, '0');  // Month is 0-indexed, so add 1
+            const year = now.getFullYear();
+            const dateString = `${day}.${month}.${year}.`;
+
+            document.getElementById("time").textContent = timeString;
+            document.getElementById("date").textContent = dateString;
+        }
+
+        setInterval(updateTimeAndDate, 1000);
+        updateTimeAndDate();  // Initial call to display the time and date immediately
+    </script>
+</body>
+</html>
