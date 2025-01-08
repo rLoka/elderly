@@ -19,11 +19,12 @@
             text-align: center;
         }
         .time {
-            font-size: 25vw;  /* Increased font size */
+            font-size: 24vw;  /* Increased font size */
             font-weight: bold;  /* Make the time text bold */
+            color: rgb(255, 217, 0);
         }
         .date {
-            font-size: 15vw;  /* Slightly smaller font size for the date */
+            font-size: 12vw;  /* Slightly smaller font size for the date */
         }
     </style>
 </head>
@@ -36,15 +37,24 @@
             const now = new Date();
             const hours = now.getHours().toString().padStart(2, '0');
             const minutes = now.getMinutes().toString().padStart(2, '0');
-            const timeString = `${hours}:${minutes}`;
+            const isDayTime = now.getHours() >= 7 && now.getHours() <= 21;
+            const emoji = isDayTime ? '🌞' : '🌘';
+            const timeString = `${hours}:${minutes}${emoji}`;
 
             const day = now.getDate().toString().padStart(2, '0');
             const month = (now.getMonth() + 1).toString().padStart(2, '0');  // Month is 0-indexed, so add 1
-            const year = now.getFullYear();
-            const dateString = `${day}.${month}.${year}.`;
+            const daysOfWeek = ["NEDJELJA", "PONEDJELJAK", "UTORAK", "SRIJEDA", "ČETVRTAK", "PETAK", "SUBOTA"];
+            const dayOfWeek = daysOfWeek[now.getDay()];
+            const dateString = `${dayOfWeek}, ${day}.${month}.`;
 
             document.getElementById("time").textContent = timeString;
             document.getElementById("date").textContent = dateString;
+
+            if (!isDayTime) {
+                document.getElementById("time").style.color = 'lightblue';
+            } else {
+                document.getElementById("time").style.color = 'rgb(255, 217, 0)';
+            }
         }
 
         setInterval(updateTimeAndDate, 1000);
